@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Cafeteria Sales Manager - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">
+                <i class="fas fa-coffee"></i><br>
+                Brewing your dashboard...
+            </div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-coffee"></i>
+                <span>Campus Cafeteria Sales Manager</span>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/users" class="nav-link"><i class="fas fa-users"></i> Customers</a>
+                <a href="/menu" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="/sales" class="nav-link"><i class="fas fa-cash-register"></i> Orders</a>
+                <a href="/reports" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content page-content" id="pageContent">
+        <div class="hero-section">
+            <h1><i class="fas fa-coffee bounce"></i> Welcome to Campus Cafeteria Sales Manager</h1>
+            <p>Your complete solution for managing cafe operations with style and efficiency</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card fade-in">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Active Customers</h3>
+                    <p class="stat-number" th:text="${totalUsers ?: 0}">0</p>
+                </div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Menu Items</h3>
+                    <p class="stat-number" th:text="${totalMenuItems ?: 0}">0</p>
+                </div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Orders</h3>
+                    <p class="stat-number" th:text="${totalSales ?: 0}">0</p>
+                </div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Revenue</h3>
+                    <p class="stat-number">$<span th:text="${#numbers.formatDecimal(totalRevenue ?: 0, 1, 2)}">0.00</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-grid">
+            <div class="action-card fade-in">
+                <div class="action-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <h3>Customer Management</h3>
+                <p>Add and manage your loyal customers with ease</p>
+                <a href="/users" class="action-btn">Manage Customers</a>
+            </div>
+            <div class="action-card fade-in">
+                <div class="action-icon">
+                    <i class="fas fa-coffee"></i>
+                </div>
+                <h3>Menu & Beverages</h3>
+                <p>Create and update your delicious menu offerings</p>
+                <a href="/menu" class="action-btn">Update Menu</a>
+            </div>
+            <div class="action-card fade-in">
+                <div class="action-icon">
+                    <i class="fas fa-receipt"></i>
+                </div>
+                <h3>Process Orders</h3>
+                <p>Handle customer orders and track all transactions</p>
+                <a href="/sales" class="action-btn">New Order</a>
+            </div>
+            <div class="action-card fade-in">
+                <div class="action-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3>Business Analytics</h3>
+                <p>View detailed reports and business insights</p>
+                <a href="/reports" class="action-btn">View Analytics</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Loading animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('pageContent').classList.add('loaded');
+                }, 500);
+            }, 800);
+        });
+
+        // Add staggered animation to cards and handle action buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.stat-card, .action-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = (index * 0.1) + 's';
+            });
+            
+            // Handle action button clicks
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add click effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

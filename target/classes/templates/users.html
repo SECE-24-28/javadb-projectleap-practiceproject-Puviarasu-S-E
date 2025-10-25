@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management - Campus Cafeteria Sales Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-coffee"></i>
+                <span>Campus Cafeteria Sales Manager</span>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/users" class="nav-link active"><i class="fas fa-users"></i> Customers</a>
+                <a href="/menu" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="/sales" class="nav-link"><i class="fas fa-cash-register"></i> Orders</a>
+                <a href="/reports" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-user-friends"></i> Customer Management</h1>
+            <p>Manage your valued customers and their information</p>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${success}"></span>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <div class="content-grid">
+            <div class="form-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-user-plus"></i> Add New Customer</h2>
+                </div>
+                <form th:action="@{/users}" method="post" class="modern-form">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNo"><i class="fas fa-phone"></i> Contact Number</label>
+                        <input type="tel" id="contactNo" name="contactNo" placeholder="Enter contact number">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i> Add Customer
+                    </button>
+                </form>
+            </div>
+
+            <div class="table-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-list"></i> All Customers</h2>
+                </div>
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Join Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}" th:if="${users != null and !users.empty}">
+                                <td th:text="${user.userId}"></td>
+                                <td>
+                                    <div class="user-info">
+                                        <i class="fas fa-user-circle"></i>
+                                        <span th:text="${user.name}"></span>
+                                    </div>
+                                </td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.contactNo ?: 'N/A'}"></td>
+                                <td th:text="${#temporals.format(user.joinDate, 'MMM dd, yyyy')}"></td>
+                            </tr>
+                            <tr th:if="${users == null or users.empty}">
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-user-friends"></i>
+                                    <p>No customers found. Add your first customer above!</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Form validation and button handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitBtn.getAttribute('data-original') || submitBtn.innerHTML;
+                        }, 3000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

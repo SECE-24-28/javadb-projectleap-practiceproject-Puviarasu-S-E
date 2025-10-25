@@ -1,0 +1,15 @@
+com\cafeteriatracker\controller\SaleController.class
+com\cafeteriatracker\service\UserService.class
+com\cafeteriatracker\controller\UserController.class
+com\cafeteriatracker\service\MenuItemService.class
+com\cafeteriatracker\model\User.class
+com\cafeteriatracker\controller\ReportController.class
+com\cafeteriatracker\controller\WebController.class
+com\cafeteriatracker\repository\MenuItemRepository.class
+com\cafeteriatracker\controller\MenuItemController.class
+com\cafeteriatracker\CafeteriaTrackerApplication.class
+com\cafeteriatracker\repository\UserRepository.class
+com\cafeteriatracker\model\Sale.class
+com\cafeteriatracker\repository\SaleRepository.class
+com\cafeteriatracker\model\MenuItem.class
+com\cafeteriatracker\service\SaleService.class

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title ?: 'Campus Cafeteria Sales Manager'}">Campus Cafeteria Sales Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-coffee"></i>
+                <span>Campus Cafeteria Sales Manager</span>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/users" class="nav-link"><i class="fas fa-users"></i> Customers</a>
+                <a href="/menu" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="/sales" class="nav-link"><i class="fas fa-cash-register"></i> Orders</a>
+                <a href="/reports" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div th:fragment="content"></div>
+    </main>
+    
+    <script>
+        // Form validation and button handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitBtn.getAttribute('data-original') || submitBtn.innerHTML;
+                        }, 3000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

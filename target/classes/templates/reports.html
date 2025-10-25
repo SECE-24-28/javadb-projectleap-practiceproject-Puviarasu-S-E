@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Analytics - Campus Cafeteria Sales Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-coffee"></i>
+                <span>Campus Cafeteria Sales Manager</span>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/users" class="nav-link"><i class="fas fa-users"></i> Customers</a>
+                <a href="/menu" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="/sales" class="nav-link"><i class="fas fa-cash-register"></i> Orders</a>
+                <a href="/reports" class="nav-link active"><i class="fas fa-chart-line"></i> Analytics</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-chart-line"></i> Business Analytics</h1>
+            <p>Generate detailed reports and view sales analytics</p>
+        </div>
+
+        <div class="reports-grid">
+            <div class="report-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-calendar-day"></i> Daily Report</h2>
+                </div>
+                <form th:action="@{/reports/daily}" method="get" class="report-form">
+                    <div class="form-group">
+                        <label for="date"><i class="fas fa-calendar"></i> Select Date</label>
+                        <input type="date" id="date" name="date" required th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                    </div>
+                    <button type="submit" class="report-btn">
+                        <i class="fas fa-search"></i> Generate Report
+                    </button>
+                </form>
+            </div>
+
+            <div class="report-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Monthly Report</h2>
+                </div>
+                <form th:action="@{/reports/monthly}" method="get" class="report-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="year"><i class="fas fa-calendar"></i> Year</label>
+                            <input type="number" id="year" name="year" min="2020" max="2030" th:value="${#dates.year(#dates.createNow())}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="month"><i class="fas fa-calendar-alt"></i> Month</label>
+                            <select id="month" name="month" required>
+                                <option value="1" th:selected="${#dates.month(#dates.createNow()) == 1}">January</option>
+                                <option value="2" th:selected="${#dates.month(#dates.createNow()) == 2}">February</option>
+                                <option value="3" th:selected="${#dates.month(#dates.createNow()) == 3}">March</option>
+                                <option value="4" th:selected="${#dates.month(#dates.createNow()) == 4}">April</option>
+                                <option value="5" th:selected="${#dates.month(#dates.createNow()) == 5}">May</option>
+                                <option value="6" th:selected="${#dates.month(#dates.createNow()) == 6}">June</option>
+                                <option value="7" th:selected="${#dates.month(#dates.createNow()) == 7}">July</option>
+                                <option value="8" th:selected="${#dates.month(#dates.createNow()) == 8}">August</option>
+                                <option value="9" th:selected="${#dates.month(#dates.createNow()) == 9}">September</option>
+                                <option value="10" th:selected="${#dates.month(#dates.createNow()) == 10}">October</option>
+                                <option value="11" th:selected="${#dates.month(#dates.createNow()) == 11}">November</option>
+                                <option value="12" th:selected="${#dates.month(#dates.createNow()) == 12}">December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="report-btn">
+                        <i class="fas fa-search"></i> Generate Report
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div th:if="${popularItems != null and !popularItems.empty}" class="results-section">
+            <div class="results-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-fire"></i> Popular Items</h2>
+                </div>
+                <div class="popular-items-grid">
+                    <div th:each="item, iterStat : ${popularItems}" class="popular-item" th:if="${iterStat.index < 5}">
+                        <div class="item-rank" th:text="${iterStat.index + 1}"></div>
+                        <div class="item-details">
+                            <h3 th:text="${item[0]}"></h3>
+                            <p><span th:text="${item[1]}"></span> sold</p>
+                        </div>
+                        <div class="item-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${reportData != null and !reportData.empty}" class="results-section">
+            <div class="results-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line"></i> Sales Report Results</h2>
+                </div>
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Sale ID</th>
+                                <th>Customer</th>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Date & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="sale : ${reportData}">
+                                <td th:text="${sale.saleId}"></td>
+                                <td>
+                                    <div class="user-info">
+                                        <i class="fas fa-user-circle"></i>
+                                        <span th:text="${sale.user.name}"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="item-info">
+                                        <i class="fas fa-utensils"></i>
+                                        <span th:text="${sale.menuItem.name}"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="quantity-badge" th:text="${sale.quantity}"></span>
+                                </td>
+                                <td class="price-cell">$<span th:text="${#numbers.formatDecimal(sale.totalAmount, 1, 2)}"></span></td>
+                                <td th:text="${#temporals.format(sale.purchaseDate, 'MMM dd, yyyy HH:mm')}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${(reportData == null or reportData.empty) and (popularItems == null or popularItems.empty)}" class="empty-reports">
+            <div class="empty-state-large">
+                <i class="fas fa-chart-bar"></i>
+                <h3>No Data Available</h3>
+                <p>Generate reports using the forms above to view analytics</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Form validation and button handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitBtn.getAttribute('data-original') || submitBtn.innerHTML;
+                        }, 3000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

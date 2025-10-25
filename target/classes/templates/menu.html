@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu & Beverages - Campus Cafeteria Sales Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-coffee"></i>
+                <span>Campus Cafeteria Sales Manager</span>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/users" class="nav-link"><i class="fas fa-users"></i> Customers</a>
+                <a href="/menu" class="nav-link active"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="/sales" class="nav-link"><i class="fas fa-cash-register"></i> Orders</a>
+                <a href="/reports" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-coffee"></i> Menu & Beverages</h1>
+            <p>Craft your delicious menu with coffee, food, and beverages</p>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${success}"></span>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <div class="content-grid">
+            <div class="form-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-plus-circle"></i> Add Menu Item</h2>
+                </div>
+                <form th:action="@{/menu}" method="post" class="modern-form">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-utensils"></i> Item Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter item name">
+                    </div>
+                    <div class="form-group">
+                        <label for="category"><i class="fas fa-tags"></i> Category</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Coffee">☕ Coffee</option>
+                            <option value="Tea">🍵 Tea</option>
+                            <option value="Cold Drinks">🥤 Cold Drinks</option>
+                            <option value="Pastries">🥐 Pastries</option>
+                            <option value="Sandwiches">🥪 Sandwiches</option>
+                            <option value="Desserts">🍰 Desserts</option>
+                            <option value="Breakfast">🥞 Breakfast</option>
+                            <option value="Snacks">🍿 Snacks</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price"><i class="fas fa-dollar-sign"></i> Price</label>
+                        <input type="number" id="price" name="price" step="0.01" min="0" required placeholder="0.00">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="availability" name="availability" checked>
+                            <span class="checkmark"></span>
+                            <i class="fas fa-check-circle"></i> Available for sale
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i> Add Menu Item
+                    </button>
+                </form>
+            </div>
+
+            <div class="table-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-list"></i> Menu Items</h2>
+                </div>
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${menuItems}" th:if="${menuItems != null and !menuItems.empty}">
+                                <td th:text="${item.itemId}"></td>
+                                <td>
+                                    <div class="item-info">
+                                        <i class="fas fa-utensils"></i>
+                                        <span th:text="${item.name}"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="category-badge" th:text="${item.category}"></span>
+                                </td>
+                                <td class="price-cell">$<span th:text="${#numbers.formatDecimal(item.price, 1, 2)}"></span></td>
+                                <td>
+                                    <span th:class="${item.availability ? 'status-available' : 'status-unavailable'}"
+                                          th:text="${item.availability ? 'Available' : 'Unavailable'}"></span>
+                                </td>
+                            </tr>
+                            <tr th:if="${menuItems == null or menuItems.empty}">
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-coffee"></i>
+                                    <p>No menu items found. Start building your delicious menu above!</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Form validation and button handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitBtn.getAttribute('data-original') || submitBtn.innerHTML;
+                        }, 3000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
