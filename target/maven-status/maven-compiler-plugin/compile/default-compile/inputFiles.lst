@@ -1,15 +1,16 @@
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\controller\MenuItemController.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\controller\WebController.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\repository\MenuItemRepository.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\service\SaleService.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\service\MenuItemService.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\model\User.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\repository\UserRepository.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\controller\SaleController.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\model\MenuItem.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\controller\ReportController.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\model\Sale.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\CafeteriaTrackerApplication.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\controller\UserController.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\repository\SaleRepository.java
-C:\Users\puvia\OneDrive\Eshwar\CAMUS CAFETERIA SALES TRACKER\src\main\java\com\cafeteriatracker\service\UserService.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\repository\UserRepository.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\model\MenuItem.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\controller\SimpleMenuItemController.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\model\User.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\repository\SaleRepository.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\service\MenuItemService.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\service\SaleService.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\controller\UserController.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\model\Sale.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\controller\SaleController.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\service\UserService.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\controller\ReportController.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\controller\MenuItemController.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\controller\WebController.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\repository\MenuItemRepository.java
+C:\Users\puvia\Documents\javadb-projectleap-practiceproject-Puviarasu-S-E\src\main\java\com\cafeteriatracker\CafeteriaTrackerApplication.java
